@@ -23,6 +23,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dogglers.R
+import com.example.dogglers.const.Layout
 import com.example.dogglers.data.DataSource
 import com.example.dogglers.model.Dog
 
@@ -39,9 +40,7 @@ class DogCardAdapter(
 
     // TODO: Initialize the data using the List found in data/DataSource
     val dogList = DataSource.dogs
-    /**
-     * Initialize view elements
-     */
+
     class DogCardViewHolder(view: View?): RecyclerView.ViewHolder(view!!) {
         // TODO: Declare and initialize all of the list item UI components
         val dogImageView : ImageView? = view?.findViewById(R.id.dog_img)
@@ -56,11 +55,9 @@ class DogCardAdapter(
         //  the vertical/horizontal list item should be used.
 
         val adapterLayout = when (layout) {
-            3 -> LayoutInflater.from(parent.context).inflate(R.layout.grid_list_item, parent, false)
+            Layout.GRID -> LayoutInflater.from(parent.context).inflate(R.layout.grid_list_item, parent, false)
             else -> LayoutInflater.from(parent.context).inflate(R.layout.vertical_horizontal_list_item, parent, false)
         }
-
-        println("DOGCARD: " + viewType)
         return DogCardViewHolder(adapterLayout)
     }
 
@@ -69,21 +66,25 @@ class DogCardAdapter(
     }
 
     override fun onBindViewHolder(holder: DogCardViewHolder, position: Int) {
+        // TODO: Get the data at the current position
+        // TODO: Set the image resource for the current dog
+        // TODO: Set the text for the current dog's name
+        // TODO: Set the text for the current dog's age
 
         val dogData = dogList[position]
         holder.dogImageView?.setImageResource(dogData.imageResourceId)
         holder.dogNameText?.text = dogData.name
         val resources = context?.resources
         holder.dogAgeText?.text = resources?.getString(R.string.dog_age, dogData.age)
-        holder.dogHobbyText?.text = resources?.getString(R.string.dog_hobbies, dogData.hobbies)
-        // TODO: Get the data at the current position
-        // TODO: Set the image resource for the current dog
-        // TODO: Set the text for the current dog's name
-        // TODO: Set the text for the current dog's age
 
         // TODO: Set the text for the current dog's hobbies by passing the hobbies to the
         //  R.string.dog_hobbies string constant.
         //  Passing an argument to the string resource looks like:
         //  resources?.getString(R.string.dog_hobbies, dog.hobbies)
+
+        holder.dogHobbyText?.text = resources?.getString(R.string.dog_hobbies, dogData.hobbies)
+
+
+
     }
 }
